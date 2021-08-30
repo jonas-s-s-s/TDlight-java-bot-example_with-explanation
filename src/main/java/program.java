@@ -119,6 +119,17 @@ public class program {
         LOGGER.error("Received an error:");
         exception.printStackTrace();
     }
+
+    /*This will try to cleanup some unused memory.
+    * You first have to disable the databases in order to use this, more info at: https://github.com/tdlight-team/tdlight#tdlight
+    * */
+    private static void optimizeMemory() {
+        Client.client.execute(new TdApi.SetNetworkType(new TdApi.NetworkTypeNone()));
+        TdApi.OptimizeMemory optimizeMemory = new TdApi.OptimizeMemory();
+        optimizeMemory.full = true;
+        Client.client.execute(optimizeMemory);
+        Client.client.execute(new TdApi.SetNetworkType(new TdApi.NetworkTypeOther()));
+    }
 }
 
 
